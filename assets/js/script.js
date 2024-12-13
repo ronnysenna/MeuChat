@@ -150,7 +150,7 @@ function sendMessage() {
     userInput.value = "";
     const typingIndicator = createTypingIndicator();
 
-    fetch("../backend/api.php", {
+    fetch("./backend/api.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: chatHistory })

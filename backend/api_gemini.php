@@ -25,7 +25,7 @@ if (!isset($data['userMessage']) || !isset($data['context'])) {
 }
 
 // Variáveis
-$apiKey = "AIzaSyAaMlceQKCvHhpfCSQwP3VxEuR_f4RUOVI"; // Substitua pela sua chave da API do Google
+$apiKey = ""; // Substitua pela sua chave da API do Google
 $userMessage = $data['userMessage'];
 $context = $data['context'];
 
