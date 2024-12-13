@@ -1,0 +1,5 @@
+# Ignorar arquivos sensíveis e dependências
+.env
+/vendor/
+composer.lock
+node_modules/
