@@ -13,6 +13,55 @@ body {
 }
 
 /* ========================================
+   ** MODO ESCURO GLOBAL **
+======================================== */
+body.dark-mode {
+    background-color: #1e1e1e; /* Fundo da página */
+    color: #f0f0f0; /* Texto padrão */
+}
+
+body.dark-mode a {
+    color: #80cbc4; /* Links */
+}
+
+body.dark-mode #chat-container,
+body.dark-mode #input-container,
+body.dark-mode #chat-header {
+    background-color: #2c2c2c;
+    border-color: #444;
+}
+
+body.dark-mode #chat-box {
+    background-color: #1e1e1e;
+}
+
+body.dark-mode .user-message {
+    background-color: #4caf50; /* Mensagem do usuário */
+    color: #fff;
+}
+
+body.dark-mode .bot-message {
+    background-color: #3a3a3a; /* Mensagem do bot */
+    color: #f0f0f0;
+}
+
+body.dark-mode #userInput {
+    background-color: #555;
+    color: #fff;
+    border: 1px solid #777;
+}
+
+body.dark-mode button {
+    background-color: #555;
+    color: #f0f0f0;
+    border: 1px solid #666;
+}
+
+body.dark-mode button:hover {
+    background-color: #007BFF;
+}
+
+/* ========================================
    ** LAYOUT PRINCIPAL **
 ======================================== */
 #chat-container {
@@ -48,36 +97,81 @@ body {
 /* ========================================
    ** MENSAGENS **
 ======================================== */
+/* Melhorias Gerais do Layout */
 .message {
-    margin-bottom: 10px;
     padding: 10px 15px;
-    border-radius: 15px;
+    margin: 8px;
     max-width: 75%;
+    border-radius: 15px;
     word-wrap: break-word;
     font-size: 14px;
     line-height: 1.4;
     animation: fadeIn 0.3s ease-in-out;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Mensagens do Usuário */
 .user-message {
     background-color: #dcf8c6;
     align-self: flex-end;
     text-align: right;
 }
 
+/* Mensagens do Bot */
 .bot-message {
     background-color: #f1f1f1;
     align-self: flex-start;
     text-align: left;
 }
+/* Spinner de carregamento */
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border-left-color: #4682B4;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-right: 8px;
+  }
 
-.timestamp {
-    font-size: 0.8em;
-    color: #888;
-    margin-left: 5px;
-}
-
+  /* social links */
+#social {
+    display: flex;
+    justify-content: center;
+    padding: 24px 0;
+    font-size: 24px;
+  }
+  
+  #social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    margin-top: 20px;
+    transition: background 0.2s;
+    border-radius: 50%;
+  }
+  
+  #social a:hover {
+    background: var(--highlight-color);
+  }
+  footer {
+    padding: 24px 0;
+    text-align: center;
+    font-size: 14px;
+    margin-top: -30px;
+  }
+  
+  footer a {
+    text-decoration: none;
+  }
+  
+  footer a:hover {
+    text-decoration: none;
+  }
+  
+  
 /* ========================================
    ** BOTÕES E ÁREA DE INPUT **
 ======================================== */
@@ -114,7 +208,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Botões Adicionais */
 #chat-actions {
     padding: 10px;
     background: #f1f1f1;
@@ -132,114 +225,47 @@ body {
 }
 
 #clearButton {
-    background: #ff6b6b;
+    background-color: #ff6b6b;
     color: white;
 }
 
-#clearButton:hover {
-    background: #e55353;
+#clearButton:hover {                    
+    background-color:#640404;
+    transform: scale(1.05);
+    
 }
 
 #exportButton {
-    background: #28a745;
+    background-color: #28a745;
     color: white;
 }
 
 #exportButton:hover {
-    background: #218838;
+    background-color:#064414;
+    transform: scale(1.05);
 }
 
 #themeToggleButton {
-    background: #6c757d;
+    background-color: #6c757d;
     color: white;
 }
 
 #themeToggleButton:hover {
-    background: #5a6268;
+    background-color:#151516;
+    transform: scale(1.05);
 }
 
-/* ========================================
-   ** ANIMAÇÕES **
-======================================== */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Botões no Modo Noturno */
+body.dark-mode #clearButton {
+    background: #ff6b6b;
 }
 
-.spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    border-left-color: #007BFF;
-    animation: spin 1s linear infinite;
-    display: inline-block;
-    margin-right: 8px;
+body.dark-mode #exportButton {
+    background: #28a745;
 }
 
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* ========================================
-   ** MODO ESCURO **
-======================================== */
-body.dark-mode {
-    background-color: #1e1e1e;
-    color: #f0f0f0;
-}
-
-body.dark-mode #chat-container {
-    background: #2c2c2c;
-    border: 1px solid #444;
-}
-
-body.dark-mode #chat-header {
-    background: #444;
-    color: white;
-}
-
-body.dark-mode #chat-box {
-    background: #1e1e1e;
-}
-
-body.dark-mode .user-message {
-    background-color: #4caf50;
-    color: white;
-}
-
-body.dark-mode .bot-message {
-    background-color: #444;
-    color: white;
-}
-
-body.dark-mode #input-container {
-    background-color: #333;
-}
-
-body.dark-mode #userInput {
-    background-color: #555;
-    color: white;
-}
-
-body.dark-mode #sendButton,
-body.dark-mode #clearButton,
-body.dark-mode #exportButton,
 body.dark-mode #themeToggleButton {
-    background-color: #555;
-    color: white;
-}
-
-body.dark-mode #sendButton:hover {
-    background-color: #007BFF;
+    background: #6c757d;
 }
 
 /* ========================================
@@ -248,6 +274,7 @@ body.dark-mode #sendButton:hover {
 @media (max-width: 768px) {
     #chat-container {
         height: 90vh;
+        border-radius: 0;
     }
 
     #chat-box {
@@ -265,9 +292,66 @@ body.dark-mode #sendButton:hover {
 
     #sendButton {
         margin-left: 0;
+        width: 100%;
     }
 
     #chat-actions {
         text-align: center;
+    }
+}
+
+/* ========================================
+   ** ANIMAÇÕES **
+======================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+
+/* Animação Fade In */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilo Responsivo */
+@media (max-width: 768px) {
+    .message {
+        font-size: 13px;
+        max-width: 90%;
+    }
+
+    #chat-container {
+        height: 95vh;
+        margin: 5px;
+    }
+
+    #input-container {
+        flex-direction: column;
+    }
+
+    #userInput, #sendButton, #clearButton, #exportButton, #themeToggleButton {
+        font-size: 14px;
+        margin: 5px 0;
     }
 }
