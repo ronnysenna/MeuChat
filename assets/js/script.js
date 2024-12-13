@@ -126,8 +126,33 @@ function exportChatHistory(format = "txt") {
 /* ========================================
    ** EVENTOS E INICIALIZAÇÃO **
 ======================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+    const userInput = document.getElementById("userInput");
+
+    userInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            if (event.shiftKey) {
+                // Shift + Enter: Insere uma quebra de linha
+                event.preventDefault();
+                const cursorPos = userInput.selectionStart;
+                const textBefore = userInput.value.substring(0, cursorPos);
+                const textAfter = userInput.value.substring(cursorPos);
+
+                userInput.value = textBefore + "\n" + textAfter;
+                userInput.selectionStart = userInput.selectionEnd = cursorPos + 1;
+            } else {
+                // Enter: Envia a mensagem
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+    });
+});
+
+
+
 sendButton.addEventListener("click", sendMessage);
-userInput.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
 closeButton.addEventListener("click", toggleChat);
 clearButton.addEventListener("click", clearChatHistory);
 exportButton.addEventListener("click", () => exportChatHistory("txt"));
