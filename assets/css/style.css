@@ -17,7 +17,8 @@ body {
 ======================================== */
 body.dark-mode {
     background-color: #1e1e1e; /* Fundo da página */
-    color: #f0f0f0; /* Texto padrão */
+    color: #f0f0f0; 
+    transition: background-color 0.3s, color 0.3s;
 }
 
 body.dark-mode a {
@@ -66,13 +67,13 @@ body.dark-mode button:hover {
 ======================================== */
 #chat-container {
     width: 100%;
-    max-width: 500px;
+    max-width: 1000px;
     background: white;
     border-radius: 20px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    height: 80vh;
+    height: 90vh;
     overflow: hidden;
 }
 
@@ -170,6 +171,50 @@ body.dark-mode button:hover {
   footer a:hover {
     text-decoration: none;
   }
+
+  pre {
+    background-color: #272822; /* Cor de fundo do bloco de código */
+    color: #f8f8f2; /* Cor do texto */
+    padding: 10px;
+    border-radius: 8px;
+    overflow-x: auto; /* Permite rolagem horizontal */
+    font-family: 'Courier New', Courier, monospace;
+    line-height: 1.5;
+}
+
+code {
+    font-size: 14px;
+    color: #f8f8f2;
+    white-space: pre-wrap; /* Quebra de linha automática */
+}
+
+/* Estilo para o container do código */
+.code-container {
+    position: relative;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.copy-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.copy-button:hover {
+    background-color: #0056b3;
+}
+
   
   
 /* ========================================
@@ -209,50 +254,54 @@ body.dark-mode button:hover {
 }
 
 #chat-actions {
-    padding: 10px;
-    background: #f1f1f1;
-    text-align: right;
+    display: flex;
+    justify-content: flex-end; /* Alinha os botões à direita */
+    gap: 10px; /* Espaçamento entre os botões */
+    padding: 10px; /* Espaçamento interno */
+    background-color: #f9f9f9; /* Fundo cinza claro */
+    border-top: 1px solid #ddd; /* Linha superior */
 }
 
 #chat-actions button {
-    margin-left: 5px;
-    padding: 6px 12px;
-    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
     border: none;
-    border-radius: 6px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background 0.3s, transform 0.2s;
+}
+
+#chat-actions button:hover {
+    transform: translateY(-2px);
 }
 
 #clearButton {
-    background-color: #ff6b6b;
-    color: white;
+    background-color: #e74c3c;
 }
 
-#clearButton:hover {                    
-    background-color:#640404;
-    transform: scale(1.05);
-    
+#clearButton:hover {
+    background-color: #c0392b;
 }
 
 #exportButton {
     background-color: #28a745;
-    color: white;
 }
 
 #exportButton:hover {
-    background-color:#064414;
-    transform: scale(1.05);
+    background-color: #218838;
 }
 
 #themeToggleButton {
     background-color: #6c757d;
-    color: white;
 }
 
 #themeToggleButton:hover {
-    background-color:#151516;
-    transform: scale(1.05);
+    background-color: #5a6268;
 }
 
 /* Botões no Modo Noturno */
@@ -267,6 +316,24 @@ body.dark-mode #exportButton {
 body.dark-mode #themeToggleButton {
     background: #6c757d;
 }
+
+/* Efeito de Fade-in para mensagens */
+.message {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+
+
+/* Spinner de carregamento */
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border-left-color: #007BFF;
+    animation: spin 1s linear infinite;
+}
+
 
 /* ========================================
    ** RESPONSIVIDADE **
@@ -288,7 +355,7 @@ body.dark-mode #themeToggleButton {
 
     #userInput {
         margin-bottom: 10px;
-    }
+     }
 
     #sendButton {
         margin-left: 0;
@@ -353,5 +420,26 @@ body.dark-mode #themeToggleButton {
     #userInput, #sendButton, #clearButton, #exportButton, #themeToggleButton {
         font-size: 14px;
         margin: 5px 0;
+        width: 100%;
     }
 }
+
+@media (max-width: 768px) {
+    #chat-actions {
+        flex-direction: column; /* Botões ficam em coluna em telas menores */
+        align-items: stretch; /* Preenche a largura */
+        gap: 8px;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+

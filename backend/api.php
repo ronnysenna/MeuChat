@@ -1,14 +1,16 @@
 <?php
 header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET");
+header("Access-Control-Allow-Headers: Content-Type");
 
 // ==========================
 // ** Carrega Variáveis do .env **
 // ==========================
 require_once __DIR__ . '/../vendor/autoload.php'; // Carrega o autoloader do Composer
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__); // Corrige o caminho do .env
 $dotenv->load();
-
 
 // ==========================
 // ** CONFIGURAÇÕES **
@@ -35,12 +37,29 @@ if (empty($messages)) {
     exit;
 }
 
+// Sanitiza e valida as mensagens
+$sanitizedMessages = [];
+foreach ($messages as $message) {
+    if (isset($message['role']) && isset($message['content'])) {
+        $sanitizedMessages[] = [
+            "role" => htmlspecialchars($message['role']),
+            "content" => htmlspecialchars($message['content'])
+        ];
+    }
+}
+
+// Verifica se há mensagens válidas
+if (empty($sanitizedMessages)) {
+    echo json_encode(["error" => "Mensagens inválidas fornecidas."]);
+    exit;
+}
+
 // ==========================
 // ** PREPARA A REQUISIÇÃO **
 // ==========================
 $postData = [
     "model" => "gpt-3.5-turbo",
-    "messages" => $messages,
+    "messages" => $sanitizedMessages,
     "max_tokens" => 500,
     "temperature" => 0.7
 ];
