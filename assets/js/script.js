@@ -126,6 +126,101 @@ function loadChatHistory() {
     scrollToBottomSmooth();
 }
 
+
+/* ========================================
+   ** FUNÇÕES DE MENSAGENS **
+======================================== */
+
+// Adicione esta nova função logo após as variáveis globais
+function typewriterEffect(element, text, speed = 30) {
+    let formattedText = formatBotResponse(text);
+    let tempDiv = document.createElement('div');
+    tempDiv.innerHTML = formattedText;
+    let textContent = tempDiv.textContent;
+    let htmlContent = formattedText;
+    let currentText = '';
+    let currentHtml = '';
+    let isTag = false;
+    let htmlQueue = [];
+    let i = 0;
+    let j = 0;
+
+    // Processa o HTML e cria uma fila de tags e texto
+    while (j < htmlContent.length) {
+        if (htmlContent[j] === '<') {
+            let tagContent = '';
+            while (j < htmlContent.length && htmlContent[j] !== '>') {
+                tagContent += htmlContent[j];
+                j++;
+            }
+            tagContent += '>';
+            htmlQueue.push({ type: 'tag', content: tagContent });
+            j++;
+        } else {
+            let textContent = '';
+            while (j < htmlContent.length && htmlContent[j] !== '<') {
+                textContent += htmlContent[j];
+                j++;
+            }
+            htmlQueue.push({ type: 'text', content: textContent });
+        }
+    }
+
+    function typeNextCharacter() {
+        if (htmlQueue.length === 0) {
+            element.innerHTML = currentHtml;
+            return;
+        }
+
+        let current = htmlQueue[0];
+        
+        if (current.type === 'tag') {
+            currentHtml += current.content;
+            htmlQueue.shift();
+            element.innerHTML = currentHtml;
+            typeNextCharacter();
+        } else {
+            if (current.content.length > 0) {
+                currentHtml += current.content[0];
+                current.content = current.content.slice(1);
+                element.innerHTML = currentHtml;
+                setTimeout(typeNextCharacter, speed);
+            } else {
+                htmlQueue.shift();
+                typeNextCharacter();
+            }
+        }
+    }
+
+    typeNextCharacter();
+}
+
+// Substitua a função addMessage existente por esta versão
+function addMessage(text, sender) {
+    const messageDiv = document.createElement("div");
+    messageDiv.classList.add("message", sender === "user" ? "user-message" : "bot-message");
+    
+    const timestamp = getCurrentTime();
+    
+    if (sender === "user") {
+        messageDiv.innerHTML = `${text} <span class="timestamp">[${timestamp}]</span>`;
+        chatBox.appendChild(messageDiv);
+    } else {
+        messageDiv.innerHTML = `<span class="timestamp">[${timestamp}]</span>`;
+        chatBox.appendChild(messageDiv);
+        messageDiv.classList.add('typing');
+        typewriterEffect(messageDiv, text);
+    }
+
+    scrollToBottomSmooth();
+    saveMessageToLocalStorage(text, sender);
+    if (sender === "bot" && !isTabActive) {
+        document.title = "💬 Nova mensagem no chat!";
+        notificationSound.play();
+    }
+}
+
+
 /* ========================================
    ** ENVIA A MENSAGEM AO BACKEND **
 ======================================== */

@@ -312,6 +312,68 @@ body.dark-mode #themeToggleButton {
 }
 
 /* ========================================
+   ** EFEITOS DE DIGITAÇÃO **
+======================================== */
+
+.bot-message {
+  position: relative;
+  opacity: 0;
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+.bot-message::after {
+  content: '|';
+  position: absolute;
+  right: -2px;
+  bottom: 0;
+  color: #333;
+  animation: blink 0.7s infinite;
+  display: none;
+}
+
+.bot-message.typing::after {
+  display: inline-block;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.bot-message pre {
+  margin: 10px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.bot-message code {
+  display: inline-block;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+      transform: translateY(20px);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+/* Ajuste para modo escuro */
+body.dark-mode .bot-message::after {
+  color: #fff;
+}
+
+
+/* ========================================
    ** CÓDIGO E BOTÃO COPY **
 ======================================== */
 pre {
