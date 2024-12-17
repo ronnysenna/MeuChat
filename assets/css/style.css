@@ -254,27 +254,41 @@ button:hover {
   transform: scale(1.2); 
 }
 
-#clear-button {
+#clearButton {
   background-color: #e74c3c;
-  border: none;
 }
 
-#clear-button:hover {
+#clearButton:hover {
   background-color: #c0392b;
 }
 
-#export-button {
+#exportButton {
   background-color: #28a745;
-  border: none;
 }
 
-#export-button:hover {
+#exportButton:hover {
   background-color: #218838;
 }
 
 #themeToggleButton {
-  background-color: #414549;
-  border: none;
+  background-color: #6c757d;
+}
+
+#themeToggleButton:hover {
+  background-color: #5a6268;
+}
+
+/* Botões no Modo Noturno */
+body.dark-mode #clearButton {
+  background: #ff6b6b;
+}
+
+body.dark-mode #exportButton {
+  background: #28a745;
+}
+
+body.dark-mode #themeToggleButton {
+  background: #6c757d;
 }
 
 /* ========================================
@@ -376,8 +390,4 @@ footer {
   color: #6c757d;
  }
 
- /* #header-container, #footer-container {
-  margin: 0;
-  padding: 0;
-} */
 
